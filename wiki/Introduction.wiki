@@ -1,0 +1,7 @@
+#summary Weapons of Fury: Reloaded
+
+= Weapons of Fury: Reloaded =
+
+Weapons of Fury: Reloaded is a remake of the Weapons of Fury mod for Quake III Arena. The original Weapons of Fury mod appears to be lost from the face of the Internet. Therefor I took it upon myself to recreate the mod as a learning experience for Quake 3 modding.
+
+The code is also part of [http://eoc.byethost5.com/index.php?p=tutorials/myfirstmod a tutorial I wrote] for our website.
