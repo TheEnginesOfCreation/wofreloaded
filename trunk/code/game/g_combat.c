@@ -490,6 +490,8 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 	int			killer;
 	int			i;
 	char		*killerName, *obit;
+	int finalWeapon = GetFinalWeapon();
+	char *finalWeaponName;
 
 	if ( self->client->ps.pm_type == PM_DEAD ) {
 		return;
@@ -553,6 +555,23 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 	self->enemy = attacker;
 
 	self->client->ps.persistant[PERS_KILLED]++;
+	
+
+
+	switch (GetWeapon(finalWeapon)) {
+		case WP_GAUNTLET		 : finalWeaponName = "Gauntlet"; break;
+		case WP_MACHINEGUN		 : finalWeaponName = "Machinegun"; break;
+		case WP_SHOTGUN			 : finalWeaponName = "Shotgun"; break;
+		case WP_GRENADE_LAUNCHER : finalWeaponName = "Grenade Launcher"; break;
+		case WP_ROCKET_LAUNCHER  : finalWeaponName = "Rocket Launcher"; break;
+		case WP_LIGHTNING        : finalWeaponName = "Lightninggun"; break;
+		case WP_RAILGUN			 : finalWeaponName = "Railgun"; break;
+		case WP_PLASMAGUN		 : finalWeaponName = "Plasmagun"; break;
+		case WP_BFG				 : finalWeaponName = "BFG"; break;
+	}
+
+	if (self->client->currentWeapon == finalWeapon)
+		trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " LOST the %s!\n\"", self->client->pers.netname, finalWeaponName) );
 
 	if (attacker && attacker->client) {
 		attacker->client->lastkilled_client = self->s.number;
@@ -560,31 +579,19 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 		if ( attacker == self || OnSameTeam (self, attacker ) ) {
 			AddScore( attacker, self->r.currentOrigin, -1 );
 		} else {
-			int finalWeapon = GetFinalWeapon();
 			if (attacker->client->currentWeapon != finalWeapon) {
 				AddScore( attacker, self->r.currentOrigin, 1);
 				ProgressWeapon( attacker, qfalse );
 				if (attacker->client->currentWeapon == finalWeapon) {
-					char *finalWeaponName;
-
-					switch (finalWeapon) {
-						case WP_GAUNTLET		 : finalWeaponName = "Gauntlet"; break;
-						case WP_MACHINEGUN		 : finalWeaponName = "Machinegun"; break;
-						case WP_SHOTGUN			 : finalWeaponName = "Shotgun"; break;
-						case WP_GRENADE_LAUNCHER : finalWeaponName = "Grenade Launcher"; break;
-						case WP_ROCKET_LAUNCHER  : finalWeaponName = "Rocket Launcher"; break;
-						case WP_LIGHTNING        : finalWeaponName = "Lightninggun"; break;
-						case WP_RAILGUN			 : finalWeaponName = "Railgun"; break;
-						case WP_PLASMAGUN		 : finalWeaponName = "Plasmagun"; break;
-						case WP_BFG				 : finalWeaponName = "BFG"; break;
-					}
 					trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " has the %s!\n\"", attacker->client->pers.netname, finalWeaponName) );
 				}
 			}
 			else
 			{
-				AddScore( attacker, self->r.currentOrigin, (g_lastWeaponPoints.integer > 0 ? g_lastWeaponPoints.integer : 1));
+				int score = (g_lastWeaponPoints.integer > 0 ? g_lastWeaponPoints.integer : 1);
+				AddScore( attacker, self->r.currentOrigin, score);
 				ProgressWeapon( attacker, qtrue );
+				trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " scored %d points!\n\"", attacker->client->pers.netname, score) );
 			}
 
 			if( meansOfDeath == MOD_GAUNTLET ) {
