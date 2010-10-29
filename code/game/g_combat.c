@@ -579,18 +579,22 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 		if ( attacker == self || OnSameTeam (self, attacker ) ) {
 			AddScore( attacker, self->r.currentOrigin, -1 );
 		} else {
+			//player makes a frag with a normal weapon
 			if (attacker->client->currentWeapon != finalWeapon) {
 				AddScore( attacker, self->r.currentOrigin, 1);
 				ProgressWeapon( attacker, qfalse );
+				//if player progressed to the final weapon, broadcast message to all player
 				if (attacker->client->currentWeapon == finalWeapon) {
 					trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " has the %s!\n\"", attacker->client->pers.netname, finalWeaponName) );
 				}
 			}
 			else
 			{
+				//player makes a frag with the final weapon
 				int score = (g_lastWeaponPoints.integer > 0 ? g_lastWeaponPoints.integer : 1);
 				AddScore( attacker, self->r.currentOrigin, score);
 				ProgressWeapon( attacker, qtrue );
+				attacker->client->ps.persistant[PERS_IMPRESSIVE_COUNT]++;	//award 'impressive' medal
 				trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " scored %d points!\n\"", attacker->client->pers.netname, score) );
 			}
 
