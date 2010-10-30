@@ -795,6 +795,7 @@ typedef struct {
 
 	// medals shown during gameplay
 	qhandle_t	medalImpressive;
+	qhandle_t	medalKillstreak;
 	qhandle_t	medalExcellent;
 	qhandle_t	medalGauntlet;
 	qhandle_t	medalDefend;
@@ -875,6 +876,7 @@ typedef struct {
 	sfxHandle_t firstImpressiveSound;
 	sfxHandle_t firstExcellentSound;
 	sfxHandle_t firstHumiliationSound;
+	sfxHandle_t killstreakSound;
 
 	sfxHandle_t takenLeadSound;
 	sfxHandle_t tiedLeadSound;
