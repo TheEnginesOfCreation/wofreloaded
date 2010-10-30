@@ -594,7 +594,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 				int score = (g_lastWeaponPoints.integer > 0 ? g_lastWeaponPoints.integer : 1);
 				AddScore( attacker, self->r.currentOrigin, score);
 				ProgressWeapon( attacker, qtrue );
-				attacker->client->ps.persistant[PERS_IMPRESSIVE_COUNT]++;	//award 'impressive' medal
+				attacker->client->ps.persistant[PERS_KILLSTREAK_COUNT]++;	//award 'killstreak' medal
 				trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " scored %d points!\n\"", attacker->client->pers.netname, score) );
 			}
 

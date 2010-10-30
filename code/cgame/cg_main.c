@@ -637,6 +637,7 @@ static void CG_RegisterSounds( void ) {
 #endif
 
 	cgs.media.impressiveSound = trap_S_RegisterSound( "sound/feedback/impressive.wav", qtrue );
+	cgs.media.killstreakSound = trap_S_RegisterSound( "sound/feedback/impressive.wav", qtrue );	//TODO: make custom killstreak sound
 	cgs.media.excellentSound = trap_S_RegisterSound( "sound/feedback/excellent.wav", qtrue );
 	cgs.media.deniedSound = trap_S_RegisterSound( "sound/feedback/denied.wav", qtrue );
 	cgs.media.humiliationSound = trap_S_RegisterSound( "sound/feedback/humiliation.wav", qtrue );
@@ -990,6 +991,7 @@ static void CG_RegisterGraphics( void ) {
 
 	cgs.media.invulnerabilityPowerupModel = trap_R_RegisterModel( "models/powerups/shield/shield.md3" );
 	cgs.media.medalImpressive = trap_R_RegisterShaderNoMip( "medal_impressive" );
+	cgs.media.medalKillstreak = trap_R_RegisterShaderNoMip( "medal_killstreak" );
 	cgs.media.medalExcellent = trap_R_RegisterShaderNoMip( "medal_excellent" );
 	cgs.media.medalGauntlet = trap_R_RegisterShaderNoMip( "medal_gauntlet" );
 	cgs.media.medalDefend = trap_R_RegisterShaderNoMip( "medal_defend" );

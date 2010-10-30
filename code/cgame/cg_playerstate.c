@@ -336,6 +336,12 @@ void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops ) {
 		reward = qtrue;
 		//Com_Printf("impressive\n");
 	}
+	
+	if (ps->persistant[PERS_KILLSTREAK_COUNT] != ops->persistant[PERS_KILLSTREAK_COUNT]) {
+		pushReward(cgs.media.killstreakSound, cgs.media.medalKillstreak, ps->persistant[PERS_KILLSTREAK_COUNT]);
+		reward = qtrue;
+	}
+
 	if (ps->persistant[PERS_EXCELLENT_COUNT] != ops->persistant[PERS_EXCELLENT_COUNT]) {
 #ifdef MISSIONPACK
 		if (ps->persistant[PERS_EXCELLENT_COUNT] == 1) {
