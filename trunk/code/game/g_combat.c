@@ -79,8 +79,6 @@ void ProgressWeapon ( gentity_t *ent, qboolean reset ) {
 	ent->client->ps.ammo[weapon] = -1;
 	ent->client->ps.weapon = weapon;
 	ent->client->ps.weaponstate = WEAPON_RAISING;//WEAPON_READY;
-	//TODO: Make weapon switch smooth
-	//TODO: Make a fast weapon switch option configurable for server.
 }
 
 /*
@@ -594,17 +592,26 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 				int score = (g_lastWeaponPoints.integer > 0 ? g_lastWeaponPoints.integer : 1);
 				AddScore( attacker, self->r.currentOrigin, score);
 				ProgressWeapon( attacker, qtrue );
-				attacker->client->ps.persistant[PERS_KILLSTREAK_COUNT]++;	//award 'killstreak' medal
+				
+				//award 'killstreak' medal
+				attacker->client->ps.persistant[PERS_KILLSTREAK_COUNT]++;
+				
+				// add the sprite over the player's head
+				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_KILLSTREAK );
+				attacker->client->ps.eFlags |= EF_AWARD_KILLSTREAK;
+				attacker->client->rewardTime = level.time + REWARD_SPRITE_TIME;
+				
+				//notify players a killstreak was awarded
 				trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " scored %d points!\n\"", attacker->client->pers.netname, score) );
 			}
 
-			if( meansOfDeath == MOD_GAUNTLET ) {
+			if ( meansOfDeath == MOD_GAUNTLET ) {
 				
 				// play humiliation on player
 				attacker->client->ps.persistant[PERS_GAUNTLET_FRAG_COUNT]++;
 
 				// add the sprite over the player's head
-				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP );
+				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_KILLSTREAK );
 				attacker->client->ps.eFlags |= EF_AWARD_GAUNTLET;
 				attacker->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 
@@ -619,7 +626,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 				attacker->client->ps.persistant[PERS_EXCELLENT_COUNT]++;
 
 				// add the sprite over the player's head
-				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP );
+				attacker->client->ps.eFlags &= ~(EF_AWARD_IMPRESSIVE | EF_AWARD_EXCELLENT | EF_AWARD_GAUNTLET | EF_AWARD_ASSIST | EF_AWARD_DEFEND | EF_AWARD_CAP | EF_AWARD_KILLSTREAK );
 				attacker->client->ps.eFlags |= EF_AWARD_EXCELLENT;
 				attacker->client->rewardTime = level.time + REWARD_SPRITE_TIME;
 			}
