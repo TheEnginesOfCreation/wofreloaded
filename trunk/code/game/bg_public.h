@@ -243,7 +243,8 @@ typedef enum {
 #define	EF_AWARD_ASSIST		0x00020000		// draw a assist sprite
 #define EF_AWARD_DENIED		0x00040000		// denied
 #define EF_TEAMVOTED		0x00080000		// already cast a team vote
-#define EF_AWARD_KILLSTREAK 0x00100000		// draw a killstreak sprite
+#define EF_AWARD_KILLSTREAK 0x00000002		// draw a killstreak sprite. Overwrites the EF_TICKING flag as there's a hard limit of 20 bits to the
+											// eFlags. The EF_TICKING flag is unused in this mod as it's Team Arena specific.
 
 // NOTE: may not have more than 16
 typedef enum {
