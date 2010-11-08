@@ -1950,8 +1950,7 @@ static void CG_PlayerSprites( centity_t *cent ) {
 	}
 
 	if ( cent->currentState.eFlags & EF_AWARD_KILLSTREAK ) {
-		Com_Printf("Should draw\n");
-		CG_PlayerFloatSprite( cent, cgs.media.medalKillstreak );	//TODO: for some reason medal is not being drawn.
+		CG_PlayerFloatSprite( cent, cgs.media.medalKillstreak );
 		return;
 	}
 
