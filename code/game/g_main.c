@@ -84,6 +84,17 @@ vmCvar_t	g_weaponOrder7;			//the 7th weapon a player gets
 vmCvar_t	g_weaponOrder8;			//the 8th weapon a player gets
 vmCvar_t	g_weaponOrder9;			//the 9th weapon a player gets
 vmCvar_t	g_lastWeaponPoints;		//amount of points scored when fraggin with last weapon in the weapon order
+vmCvar_t	g_enableAdvancedScoring;//enable advanced scoring system
+vmCvar_t	g_weaponPoints1;		//the amount of points earned for making a frag with the 1st weapon
+vmCvar_t	g_weaponPoints2;		//the amount of points earned for making a frag with the 2nd weapon
+vmCvar_t	g_weaponPoints3;		//the amount of points earned for making a frag with the 3rd weapon
+vmCvar_t	g_weaponPoints4;		//the amount of points earned for making a frag with the 4th weapon
+vmCvar_t	g_weaponPoints5;		//the amount of points earned for making a frag with the 5th weapon
+vmCvar_t	g_weaponPoints6;		//the amount of points earned for making a frag with the 6th weapon
+vmCvar_t	g_weaponPoints7;		//the amount of points earned for making a frag with the 7th weapon
+vmCvar_t	g_weaponPoints8;		//the amount of points earned for making a frag with the 8th weapon
+vmCvar_t	g_weaponPoints9;		//the amount of points earned for making a frag with the 9th weapon
+
 
 // bk001129 - made static to avoid aliasing
 static cvarTable_t		gameCvarTable[] = {
@@ -181,7 +192,17 @@ static cvarTable_t		gameCvarTable[] = {
 
 	//TODO: It's better to refer to the WP_xxxx typedef enum values rather than entering static numbers as default values
 
-	{ &g_lastWeaponPoints, "g_lastWeaponPoints", "10", 0, 0, qtrue }
+	{ &g_lastWeaponPoints, "g_lastWeaponPoints", "10", 0, 0, qtrue },
+	{ &g_enableAdvancedScoring, "g_enableAdvancedScoring", "0", 0, 0, qtrue },
+	{ &g_weaponPoints1, "g_weaponPoints1", "1", 0, 0, qtrue },
+	{ &g_weaponPoints2, "g_weaponPoints2", "1", 0, 0, qtrue },
+	{ &g_weaponPoints3, "g_weaponPoints3", "1", 0, 0, qtrue },
+	{ &g_weaponPoints4, "g_weaponPoints4", "1", 0, 0, qtrue },
+	{ &g_weaponPoints5, "g_weaponPoints5", "1", 0, 0, qtrue },
+	{ &g_weaponPoints6, "g_weaponPoints6", "1", 0, 0, qtrue },
+	{ &g_weaponPoints7, "g_weaponPoints7", "1", 0, 0, qtrue },
+	{ &g_weaponPoints8, "g_weaponPoints8", "1", 0, 0, qtrue },
+	{ &g_weaponPoints9, "g_weaponPoints9", "10", 0, 0, qtrue },
 
 };
 
