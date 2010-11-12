@@ -637,7 +637,7 @@ static void CG_RegisterSounds( void ) {
 #endif
 
 	cgs.media.impressiveSound = trap_S_RegisterSound( "sound/feedback/impressive.wav", qtrue );
-	cgs.media.killstreakSound = trap_S_RegisterSound( "sound/feedback/impressive.wav", qtrue );	//TODO: make custom killstreak sound
+	cgs.media.killstreakSound = trap_S_RegisterSound( "sound/teamplay/flagcap_red.wav", qtrue );	//TODO: make custom killstreak sound
 	cgs.media.excellentSound = trap_S_RegisterSound( "sound/feedback/excellent.wav", qtrue );
 	cgs.media.deniedSound = trap_S_RegisterSound( "sound/feedback/denied.wav", qtrue );
 	cgs.media.humiliationSound = trap_S_RegisterSound( "sound/feedback/humiliation.wav", qtrue );
