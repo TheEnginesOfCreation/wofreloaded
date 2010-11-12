@@ -106,7 +106,7 @@ int GetWeapon( int currentOrderNumber ) {
 
 /*
 =================
-GetHighestWeaponOrder
+GetFinalWeapon
 
 Gets the last valid weapon from the g_weaponOrder cvars
 =================
@@ -132,6 +132,29 @@ int GetFinalWeapon() {
 		return 1;
 
 	return 1;
+}
+
+/*
+=================
+GetWeaponName
+
+Returns the name of the weapon
+=================
+*/
+char *GetWeaponName(int weaponOrderNumber) {
+	switch (GetWeapon(weaponOrderNumber)) {
+		case WP_GAUNTLET		 : return "Gauntlet"; break;
+		case WP_MACHINEGUN		 : return "Machinegun"; break;
+		case WP_SHOTGUN			 : return "Shotgun"; break;
+		case WP_GRENADE_LAUNCHER : return "Grenade Launcher"; break;
+		case WP_ROCKET_LAUNCHER  : return "Rocket Launcher"; break;
+		case WP_LIGHTNING        : return "Lightninggun"; break;
+		case WP_RAILGUN			 : return "Railgun"; break;
+		case WP_PLASMAGUN		 : return "Plasmagun"; break;
+		case WP_BFG				 : return "BFG"; break;
+	}
+
+	return "INVALID WEAPON INDEX";
 }
 
 /*
@@ -489,7 +512,6 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 	int			i;
 	char		*killerName, *obit;
 	int finalWeapon = GetFinalWeapon();
-	char *finalWeaponName;
 
 	if ( self->client->ps.pm_type == PM_DEAD ) {
 		return;
@@ -553,23 +575,9 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 	self->enemy = attacker;
 
 	self->client->ps.persistant[PERS_KILLED]++;
-	
-
-
-	switch (GetWeapon(finalWeapon)) {
-		case WP_GAUNTLET		 : finalWeaponName = "Gauntlet"; break;
-		case WP_MACHINEGUN		 : finalWeaponName = "Machinegun"; break;
-		case WP_SHOTGUN			 : finalWeaponName = "Shotgun"; break;
-		case WP_GRENADE_LAUNCHER : finalWeaponName = "Grenade Launcher"; break;
-		case WP_ROCKET_LAUNCHER  : finalWeaponName = "Rocket Launcher"; break;
-		case WP_LIGHTNING        : finalWeaponName = "Lightninggun"; break;
-		case WP_RAILGUN			 : finalWeaponName = "Railgun"; break;
-		case WP_PLASMAGUN		 : finalWeaponName = "Plasmagun"; break;
-		case WP_BFG				 : finalWeaponName = "BFG"; break;
-	}
 
 	if (self->client->currentWeapon == finalWeapon)
-		trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " LOST the %s!\n\"", self->client->pers.netname, finalWeaponName) );
+		trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " LOST the %s!\n\"", self->client->pers.netname, GetWeaponName(finalWeapon)) );
 
 	if (attacker && attacker->client) {
 		attacker->client->lastkilled_client = self->s.number;
@@ -583,7 +591,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 				ProgressWeapon( attacker, qfalse );
 				//if player progressed to the final weapon, broadcast message to all player
 				if (attacker->client->currentWeapon == finalWeapon) {
-					trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " has the %s!\n\"", attacker->client->pers.netname, finalWeaponName) );
+					trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " has the %s!\n\"", attacker->client->pers.netname, GetWeaponName(finalWeapon)) );
 				}
 			}
 			else
