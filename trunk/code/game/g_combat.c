@@ -103,12 +103,44 @@ int GetWeapon( int currentOrderNumber ) {
 	}
 }
 
+/*
+=================
+GetWeaponPoints
+
+Gets the number of points that should be awarded when making a frag with the specified weapon.
+=================
+*/
+int GetWeaponPoints( int currentOrderNumber) {
+	if (g_enableAdvancedScoring.integer == 1)
+	{
+		switch (currentOrderNumber) {
+			case 1: return g_weaponPoints1.integer; break;
+			case 2: return g_weaponPoints2.integer; break;
+			case 3: return g_weaponPoints3.integer; break;
+			case 4: return g_weaponPoints4.integer; break;
+			case 5: return g_weaponPoints5.integer; break;
+			case 6: return g_weaponPoints6.integer; break;
+			case 7: return g_weaponPoints7.integer; break;
+			case 8: return g_weaponPoints8.integer; break;
+			case 9: return g_weaponPoints9.integer; break;
+			default: return 1; //invalid order number
+		}
+	}
+	else
+	{
+		if (GetFinalWeapon() == currentOrderNumber)
+			return (g_lastWeaponPoints.integer > 0 ? g_lastWeaponPoints.integer : 1);
+		else
+			return 1;
+	}
+}
+
 
 /*
 =================
 GetFinalWeapon
 
-Gets the last valid weapon from the g_weaponOrder cvars
+Gets the last valid weapon index from the g_weaponOrder cvars
 =================
 */
 int GetFinalWeapon() {
@@ -587,7 +619,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 		} else {
 			//player makes a frag with a normal weapon
 			if (attacker->client->currentWeapon != finalWeapon) {
-				AddScore( attacker, self->r.currentOrigin, 1);
+				AddScore( attacker, self->r.currentOrigin, GetWeaponPoints(attacker->client->currentWeapon));
 				ProgressWeapon( attacker, qfalse );
 				//if player progressed to the final weapon, broadcast message to all player
 				if (attacker->client->currentWeapon == finalWeapon) {
@@ -597,7 +629,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 			else
 			{
 				//player makes a frag with the final weapon
-				int score = (g_lastWeaponPoints.integer > 0 ? g_lastWeaponPoints.integer : 1);
+				int score = GetWeaponPoints(attacker->client->currentWeapon);
 				AddScore( attacker, self->r.currentOrigin, score);
 				ProgressWeapon( attacker, qtrue );
 				

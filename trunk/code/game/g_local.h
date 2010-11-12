@@ -759,6 +759,17 @@ extern	vmCvar_t	g_weaponOrder7;
 extern	vmCvar_t	g_weaponOrder8;
 extern	vmCvar_t	g_weaponOrder9;
 extern	vmCvar_t	g_lastWeaponPoints;
+extern	vmCvar_t	g_enableAdvancedScoring;
+extern	vmCvar_t	g_weaponPoints1;
+extern	vmCvar_t	g_weaponPoints2;
+extern	vmCvar_t	g_weaponPoints3;
+extern	vmCvar_t	g_weaponPoints4;
+extern	vmCvar_t	g_weaponPoints5;
+extern	vmCvar_t	g_weaponPoints6;
+extern	vmCvar_t	g_weaponPoints7;
+extern	vmCvar_t	g_weaponPoints8;
+extern	vmCvar_t	g_weaponPoints9;
+
 
 void	trap_Printf( const char *fmt );
 void	trap_Error( const char *fmt );
