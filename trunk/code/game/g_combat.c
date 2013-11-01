@@ -90,16 +90,16 @@ Gets the current weapon based on order number.
 */
 int GetWeapon( int currentOrderNumber ) {
 	switch (currentOrderNumber) {
-		case 1: if (g_weaponOrder1.string == "") return -1; else return g_weaponOrder1.integer; break;
-		case 2: if (g_weaponOrder2.string == "") return -1; else return g_weaponOrder2.integer; break;
-		case 3: if (g_weaponOrder3.string == "") return -1; else return g_weaponOrder3.integer; break;
-		case 4: if (g_weaponOrder4.string == "") return -1; else return g_weaponOrder4.integer; break;
-		case 5: if (g_weaponOrder5.string == "") return -1; else return g_weaponOrder5.integer; break;
-		case 6: if (g_weaponOrder6.string == "") return -1; else return g_weaponOrder6.integer; break;
-		case 7: if (g_weaponOrder7.string == "") return -1; else return g_weaponOrder7.integer; break;
-		case 8: if (g_weaponOrder8.string == "") return -1; else return g_weaponOrder8.integer; break;
-		case 9: if (g_weaponOrder9.string == "") return -1; else return g_weaponOrder9.integer; break;
-		default: if (g_weaponOrder1.string == "") return -1; else return g_weaponOrder1.integer; break;
+		case 1: if (!strcmp(g_weaponOrder1.string, "")) return -1; else return g_weaponOrder1.integer; break;
+		case 2: if (!strcmp(g_weaponOrder2.string, "")) return -1; else return g_weaponOrder2.integer; break;
+		case 3: if (!strcmp(g_weaponOrder3.string, "")) return -1; else return g_weaponOrder3.integer; break;
+		case 4: if (!strcmp(g_weaponOrder4.string, "")) return -1; else return g_weaponOrder4.integer; break;
+		case 5: if (!strcmp(g_weaponOrder5.string, "")) return -1; else return g_weaponOrder5.integer; break;
+		case 6: if (!strcmp(g_weaponOrder6.string, "")) return -1; else return g_weaponOrder6.integer; break;
+		case 7: if (!strcmp(g_weaponOrder7.string, "")) return -1; else return g_weaponOrder7.integer; break;
+		case 8: if (!strcmp(g_weaponOrder8.string, "")) return -1; else return g_weaponOrder8.integer; break;
+		case 9: if (!strcmp(g_weaponOrder9.string, "")) return -1; else return g_weaponOrder9.integer; break;
+		default: if (!strcmp(g_weaponOrder1.string, "")) return -1; else return g_weaponOrder1.integer; break;
 	}
 }
 
